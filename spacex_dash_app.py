@@ -64,7 +64,7 @@ def get_pie_chart(site):
             title='Total Successful Launches by Launch Site'
         )
     else:
-        filt_df = spacex_df[spacex_df['Launch Site'] == site].groupby('class').count().reset_index()
+        filt_df = spacex_df[spacex_df['Launch Site'] == site]
         success_counts = filt_df['class'].value_counts().reset_index()
         success_counts.columns = ['class', 'count']
         fig = px.pie(success_counts,
@@ -95,7 +95,7 @@ def get_scatter_chart(site, payload_range):
             title='All Launch Sites with Payloads Between {:8,d}kg and {:8,d}kg'.format(low, high)
         )
     else:
-        filt_df = spacex_df[(spacex_df['Launch Site'] == entered_site) & 
+        filt_df = spacex_df[(spacex_df['Launch Site'] == site) & 
             (spacex_df['Payload Mass (kg)'] >= low) &
             (spacex_df['Payload Mass (kg)'] <= high)
         
@@ -111,4 +111,4 @@ def get_scatter_chart(site, payload_range):
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server(port=8051)
+    app.run_server()
